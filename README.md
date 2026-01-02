@@ -40,13 +40,11 @@ git clone https://github.com/AdamPolivka1/ObjednavkovySystem.git
 ---
 a. Otevřít hlavní adresář aplikace ve Visual Studiu
 
-b. V horní liště změnit z Debug na Release
+b. V horní liště změnit z Debug na Release, spouštěný projekt je Orderappis
 
 c. Sestavit > Znovu sestavit řešení
 
-d. Z hlavního adresáře zkopírovat složku "Images" do složky Orderappis > bin > Release
-
-e. Nyní lze složku Orderappis > bin > Release distribuovat (je v ní exe soubor)
+d. Nyní lze složku Orderappis > bin > Release distribuovat (je v ní exe soubor)
 
 b. To je vše, případně vytvořit zástupce na ploše (na exe soubor z Release či už jinak pojmenované složky s exe)
 
