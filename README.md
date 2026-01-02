@@ -15,11 +15,9 @@ Nejprve je nutné vytvořit databázi v PostgreSQL.
 
 a. Vytvořit databázi s názvem "orderappis"
 
-b. Vytvořit uživatele "orderappis_client" s heslem "Asa123qyx!" a přidělit mu práva k orderappis (pro zjednodušení všechny Seed.txt)
+b. Vytvořit uživatele "orderappis_client" s heslem "Asa123qyx!" a přidělit mu práva k orderappis
 
-c. Vytvoření tabulek a funkcí, procedur.. (Seed.txt)
-
-c. Naplnění daty (Seed.txt)
+c. Spustit příkaz v cmd z adresáře projektu (Dump.sql): `psql -U postgres -d orderappis -f Dump.sql`
 
 Základní Connection string:
 Host=localhost;
