@@ -1,0 +1,7 @@
+# IGNORUJE NEPOTŘEBNÉ
+**/bin/
+**/release/
+**/obj/
+**/out/
+**/vs/
+.vs/
