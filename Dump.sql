@@ -883,7 +883,7 @@ ALTER TABLE ONLY amain."user"
 -- Name: SCHEMA amain; Type: ACL; Schema: -; Owner: postgres
 --
 
-GRANT USAGE ON SCHEMA amain TO orderis_client;
+GRANT USAGE ON SCHEMA amain TO orderappis_client;
 GRANT ALL ON SCHEMA amain TO orderappis_client;
 
 
