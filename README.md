@@ -60,7 +60,7 @@ f. Příhlášení do systému jako admin: login: a00001 heslo: hsl123
 
 ## Testování
 
-a. Zde je ukázkové video: https://www.dropbox.com/scl/fi/2br403njcnn9j1983p6o5/orderappis_video.mp4?rlkey=dxqnxse7te5qi5ev8gwhdz0eo&st=hgdvtapf&dl=0
+a. Zde je ukázkové video: https://www.dropbox.com/scl/fi/w1retlcw64jsmzqtmvxzs/orderappis_video.mp4?rlkey=rafp2n5ur4bci1nr38y9433lk&st=pwrma42g&dl=0
 
 ## Autor
 Adam Polívka
