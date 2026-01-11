@@ -58,5 +58,9 @@ e. To je vše, případně vytvořit zástupce na ploše (na exe soubor z Releas
 
 f. Příhlášení do systému jako admin: login: a00001 heslo: hsl123
 
+## Testování
+
+a. Zde je ukázkové video: https://www.dropbox.com/scl/fi/2br403njcnn9j1983p6o5/orderappis_video.mp4?rlkey=dxqnxse7te5qi5ev8gwhdz0eo&st=hgdvtapf&dl=0
+
 ## Autor
 Adam Polívka
