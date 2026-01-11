@@ -38,7 +38,7 @@ namespace Orderis.UserControls.Mod.Orders
 
         // TAB 4
         private DataTable dtInvoice = new DataTable();
-        private NpgsqlDataAdapter invoiceAdapter;
+        private NpgsqlDataAdapter? invoiceAdapter;
 
         // TAB 4 pages
         private int currentPage_Inv = 1;
@@ -360,8 +360,12 @@ namespace Orderis.UserControls.Mod.Orders
         private void ChangePerPage_Inv_Click(object? sender, EventArgs e)
         {
             currentPage_Inv = 1;
-            pageSize_Inv = (int)cBoxPerPage_Inv.SelectedItem;
-            LoadPageTab4();
+            var selectedI = cBoxPerPage_Inv.SelectedItem;
+            if (selectedI != null)
+            {
+                pageSize_Inv = (int)selectedI;
+                LoadPageTab4();
+            }
         }
 
         private void GridRefresh_Inv_Click(object? sender, EventArgs e)
@@ -556,8 +560,12 @@ namespace Orderis.UserControls.Mod.Orders
         private void ChangePerPageU_Click(object? sender, EventArgs e)
         {
             currentPage2U = 1;
-            pageSize2U = (int)cBoxPerPageU.SelectedItem;
-            LoadPageTab2Up();
+            var selectedI = cBoxPerPageU.SelectedItem;
+            if (selectedI != null)
+            {
+                pageSize2U = (int)selectedI;
+                LoadPageTab2Up();
+            }
         }
 
         public DialogResult ShowUserControlModal(UserControl control, string title)
@@ -704,7 +712,7 @@ namespace Orderis.UserControls.Mod.Orders
             InitTab1();
         }
 
-        private void GridCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void GridCellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
         {
             // vytvořena (1), zpracovává se (2)
             // připravena k odeslání (3), doručuje se (4)
@@ -739,8 +747,12 @@ namespace Orderis.UserControls.Mod.Orders
         private void ChangePerPage_Click(object? sender, EventArgs e)
         {
             currentPage = 1;
-            pageSize = (int)cBoxPerPage.SelectedItem;
-            LoadPage();
+            var selectedP = cBoxPerPage.SelectedItem;
+            if (selectedP != null)
+            {
+                pageSize = (int)selectedP;
+                LoadPage();
+            }
         }
 
         private void LoadAllOrders()
@@ -889,8 +901,9 @@ namespace Orderis.UserControls.Mod.Orders
             lblCurrentPageU.Text = currentPage2U.ToString();
         }
 
-        private void PaginationButton_Click(object sender, EventArgs e)
+        private void PaginationButton_Click(object? sender, EventArgs e)
         {
+            if (sender == null) return;
             if (sender == btnFirst) currentPage = 1;
             else if (sender == btnPrev) currentPage = Math.Max(1, currentPage - 1);
             else if (sender == btnNext) currentPage = Math.Min(totalPages, currentPage + 1);
@@ -1249,7 +1262,7 @@ namespace Orderis.UserControls.Mod.Orders
 
         private void tabControlOrders_SelectedIndexChanged(object sender, EventArgs e)
         {
-            TabPage selectedTab = tabPageContrMain.SelectedTab;
+            TabPage? selectedTab = tabPageContrMain.SelectedTab;
 
             if (selectedTab == tabPageOrders)
             {

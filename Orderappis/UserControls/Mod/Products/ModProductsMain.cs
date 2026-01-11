@@ -4,6 +4,7 @@ using Orderappis.UserControls.Mod.Products.dlg;
 using Orderis.Data;
 using Orderis.Services.Auth;
 using System.Data;
+using System.Reflection;
 
 namespace Orderis.UserControls.Mod.Products
 {
@@ -21,8 +22,8 @@ namespace Orderis.UserControls.Mod.Products
 
         private DataTable dtProducts = new DataTable();
         private DataTable dtCategories = new DataTable();
-        private NpgsqlDataAdapter? productAdapter;
-        private NpgsqlDataAdapter? categoryAdapter;
+        private NpgsqlDataAdapter productAdapter = new NpgsqlDataAdapter();
+        private NpgsqlDataAdapter categoryAdapter = new NpgsqlDataAdapter();
 
         // Auth Info ---------------------
         private Boolean isZ { get; set; } = false;
@@ -225,12 +226,12 @@ namespace Orderis.UserControls.Mod.Products
             }
         }
 
-        private void GridRefresh_Click(object sender, EventArgs e)
+        private void GridRefresh_Click(object? sender, EventArgs e)
         {
             Init();
         }
 
-        private void GridRefreshC_Click(object sender, EventArgs e)
+        private void GridRefreshC_Click(object? sender, EventArgs e)
         {
             InitTab2();
         }
@@ -362,7 +363,7 @@ namespace Orderis.UserControls.Mod.Products
         }
 
 
-        private void GridCreate_Click(object sender, EventArgs e)
+        private void GridCreate_Click(object? sender, EventArgs e)
         {
             bool ModalAllowInsert = false;
             using (var modal = new dlgProductEA())
@@ -372,12 +373,13 @@ namespace Orderis.UserControls.Mod.Products
                 ModalAllowInsert = modal.AllowInsert;
                 if (ModalAllowInsert)
                 {
-                    InsertProductDataSet(modal.ProductModel);
+                    if (modal.ProductModel != null)
+                        InsertProductDataSet(modal.ProductModel);
                 }
             }
         }
 
-        private void GridEdit_Click(object sender, EventArgs e)
+        private void GridEdit_Click(object? sender, EventArgs e)
         {
             bool ModalAllowEdit = false;
             int productId = GetCurrentRowProductId();
@@ -385,6 +387,8 @@ namespace Orderis.UserControls.Mod.Products
             {
                 using (var modal = new dlgProductEA())
                 {
+                    if (modal.ProductModel == null)
+                        return;
                     modal.ProductModel.ProductId = productId;
                     modal.LoadData();
                     ShowUserControlModal(modal, "Editace produktu");
@@ -398,7 +402,7 @@ namespace Orderis.UserControls.Mod.Products
             }
         }
 
-        private void GridDelete_Click(object sender, EventArgs e)
+        private void GridDelete_Click(object? sender, EventArgs e)
         {
             if (MessageDialog.ShowMessage("question", "Přejete si smazat produkt?") == DialogResult.OK)
             {
@@ -431,14 +435,18 @@ namespace Orderis.UserControls.Mod.Products
             dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.MediumTurquoise;
         }
 
-        private void ChangePerPage_Click(object sender, EventArgs e)
+        private void ChangePerPage_Click(object? sender, EventArgs e)
         {
             currentPage = 1;
-            pageSize = (int)cBoxPerPage.SelectedItem;
-            LoadPage();
+            var selectedItem = cBoxPerPage.SelectedItem;
+            if (selectedItem != null)
+            {
+                pageSize = (int)selectedItem;
+                LoadPage();
+            }
         }
 
-        private void ChangePerPageC_Click(object sender, EventArgs e)
+        private void ChangePerPageC_Click(object? sender, EventArgs e)
         {
             currentPageC = 1;
             var selectedItem = cBoxPerPageC.SelectedItem;
@@ -460,8 +468,9 @@ namespace Orderis.UserControls.Mod.Products
             LoadPage();
         }
 
-        private void PaginationButtonC_Click(object sender, EventArgs e)
+        private void PaginationButtonC_Click(object? sender, EventArgs e)
         {
+            if (sender == null) return;
             if (sender == btnFirstC) currentPageC = 1;
             else if (sender == btnPrevC) currentPageC = Math.Max(1, currentPageC - 1);
             else if (sender == btnNextC) currentPageC = Math.Min(totalPagesC, currentPageC + 1);

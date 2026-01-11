@@ -34,9 +34,9 @@ namespace Orderis.UserControls.Mod.Users
         private DataTable dtUsers = new DataTable();
         private DataTable dtRoles = new DataTable();
         private DataTable dtAccounts = new DataTable();
-        private NpgsqlDataAdapter? userAdapter;
-        private NpgsqlDataAdapter? roleAdapter;
-        private NpgsqlDataAdapter? accountAdapter;
+        private NpgsqlDataAdapter userAdapter = new NpgsqlDataAdapter();
+        private NpgsqlDataAdapter roleAdapter = new NpgsqlDataAdapter();
+        private NpgsqlDataAdapter accountAdapter = new NpgsqlDataAdapter();
 
         public ModUsersMain()
         {
@@ -238,7 +238,7 @@ namespace Orderis.UserControls.Mod.Users
             ApplyDefaultGridStyles(dataGridViewUserAccounts);
         }
 
-        private void GridRefreshA_Click(object sender, EventArgs e)
+        private void GridRefreshA_Click(object? sender, EventArgs e)
         {
             InitTab3();
         }
@@ -535,7 +535,7 @@ namespace Orderis.UserControls.Mod.Users
             }
         }
 
-        private void GridDelete_Click(object sender, EventArgs e)
+        private void GridDelete_Click(object? sender, EventArgs e)
         {
             if (MessageDialog.ShowMessage("question", "Přejete si smazat uživatele?") == DialogResult.OK)
             {
@@ -568,21 +568,29 @@ namespace Orderis.UserControls.Mod.Users
             dgv.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.MediumTurquoise;
         }
 
-        private void ChangePerPage_Click(object sender, EventArgs e)
+        private void ChangePerPage_Click(object? sender, EventArgs e)
         {
             currentPage = 1;
-            pageSize = (int)cBoxPerPage.SelectedItem;
-            LoadPage();
+            var selectedI = cBoxPerPage.SelectedItem;
+            if (selectedI != null)
+            {
+                pageSize = (int)selectedI;
+                LoadPage();
+            }
         }
 
-        private void ChangePerPageR_Click(object sender, EventArgs e)
+        private void ChangePerPageR_Click(object? sender, EventArgs e)
         {
             currentPageR = 1;
-            pageSizeR = (int)cBoxPerPageR.SelectedItem;
-            LoadPageTab2();
+            var selectedR = cBoxPerPage.SelectedItem;
+            if (selectedR != null)
+            {
+                pageSizeR = (int)selectedR;
+                LoadPageTab2();
+            }
         }
 
-        private void ChangePerPageA_Click(object sender, EventArgs e)
+        private void ChangePerPageA_Click(object? sender, EventArgs e)
         {
             currentPageA = 1;
             var pgS = cBoxPerPageA.SelectedItem;
@@ -603,8 +611,9 @@ namespace Orderis.UserControls.Mod.Users
             LoadPage();
         }
 
-        private void PaginationButtonR_Click(object sender, EventArgs e)
+        private void PaginationButtonR_Click(object? sender, EventArgs e)
         {
+            if (sender == null) return;
             if (sender == btnFirstR) currentPageR = 1;
             else if (sender == btnPrevR) currentPageR = Math.Max(1, currentPageR - 1);
             else if (sender == btnNextR) currentPageR = Math.Min(totalPagesR, currentPageR + 1);
@@ -613,8 +622,9 @@ namespace Orderis.UserControls.Mod.Users
             LoadPageTab2();
         }
 
-        private void PaginationButtonA_Click(object sender, EventArgs e)
+        private void PaginationButtonA_Click(object? sender, EventArgs e)
         {
+            if (sender == null) return;
             if (sender == btnFirstA) currentPageA = 1;
             else if (sender == btnPrevA) currentPageA = Math.Max(1, currentPageA - 1);
             else if (sender == btnNextA) currentPageA = Math.Min(totalPagesA, currentPageA + 1);
