@@ -14,7 +14,7 @@ namespace Orderis.Data.Model
         public int Qty { get; set; }
         public string Note { get; set; }
 
-        public OrderItem() { }
+        //public OrderItem() { }
 
         public OrderItem(int orderItemId, int orderId, int productId, int qty, string note)
         {

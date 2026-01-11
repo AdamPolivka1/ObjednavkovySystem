@@ -7,7 +7,7 @@ namespace Orderappis.Data.Repositories
     public class OrderRepository
     {
 
-        public Order GetById(int orderId)
+        public Order? GetById(int orderId)
         {
             string sql = @"
             SELECT ord.order_id, ord.payment_id, ord.customer_account_id,

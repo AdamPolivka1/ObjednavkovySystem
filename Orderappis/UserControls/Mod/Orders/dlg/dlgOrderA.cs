@@ -21,6 +21,7 @@ namespace Orderappis.UserControls.Mod.Orders.dlg
             _caRepository = new CustomerAccountRepository();
             DeliveryModel = new Delivery();
             OrderModel = new Order();
+            _deliveryTypes = new List<DeliveryTypes>();
         }
 
         private void SetDeliveryTypes()
@@ -122,9 +123,13 @@ namespace Orderappis.UserControls.Mod.Orders.dlg
                 cmd.Parameters.AddWithValue("@address", NpgsqlTypes.NpgsqlDbType.Text, DeliveryModel.DeliveryAddress);
                 cmd.Parameters.AddWithValue("@status", NpgsqlTypes.NpgsqlDbType.Integer, DeliveryModel.Status);
                 cmd.Parameters.AddWithValue("@price", NpgsqlTypes.NpgsqlDbType.Money, DeliveryModel.PriceCZK);
-                cmd.Parameters.AddWithValue("@note", NpgsqlTypes.NpgsqlDbType.Text, DeliveryModel.Note == "" ? (object)DBNull.Value : DeliveryModel.Note);
+                cmd.Parameters.AddWithValue("@note", NpgsqlTypes.NpgsqlDbType.Text, DeliveryModel.Note == null ? (object)DBNull.Value : DeliveryModel.Note);
 
-                return (int)cmd.ExecuteScalar();
+                var returnObj = cmd.ExecuteScalar();
+                if (returnObj != null)
+                {
+                    return (int)returnObj;
+                } else { return -1; }
             }
         }
 

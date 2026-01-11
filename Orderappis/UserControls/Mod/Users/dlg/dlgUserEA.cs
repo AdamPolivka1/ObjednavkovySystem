@@ -12,14 +12,15 @@ namespace Orderappis.UserControls.Mod.Users.dlg
     {
         private UserService _userService { get; set; }
         public User UserModel { get; set; }
-        public bool AllowEdit { get; private set; }
-        public bool AllowInsert { get; private set; }
+        public bool AllowEdit { get; private set; } = false;
+        public bool AllowInsert { get; private set; } = false;
 
         public dlgUserEA()
         {
             InitializeComponent();
             SetDefaults();
             _userService = new UserService();
+            UserModel = new User();
         }
 
         private void SetDefaults()
@@ -42,7 +43,7 @@ namespace Orderappis.UserControls.Mod.Users.dlg
             btnPasswordCreate.Click += btnPasswordCreate_Click;
         }
 
-        private void btnPasswordCreate_Click(Object Sender, EventArgs eventArgs)
+        private void btnPasswordCreate_Click(Object? Sender, EventArgs eventArgs)
         {
             string plainText = textBoxPasswordCreate.Text;
             if (plainText != "")
@@ -101,7 +102,7 @@ namespace Orderappis.UserControls.Mod.Users.dlg
 
                 return true;
             }
-            catch (Exception ex)
+            catch
             {
                 MessageBox.Show($"Chyba při načítání rolí", "Chyba", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -110,7 +111,7 @@ namespace Orderappis.UserControls.Mod.Users.dlg
 
         
 
-        public List<string> Validate()
+        public List<string> ValidateD()
         {
             List<string> errors = new List<string>();
 
@@ -169,7 +170,7 @@ namespace Orderappis.UserControls.Mod.Users.dlg
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            var errors = Validate();
+            var errors = ValidateD();
 
             if (errors.Count > 0)
             {

@@ -7,9 +7,9 @@ namespace Orderappis.UserControls.Mod.Products.dlg
 {
     public partial class dlgProductEA : UserControl
     {
-        public Product ProductModel { get; set; }
-        public bool AllowEdit { get; private set; }
-        public bool AllowInsert { get; private set; }
+        public Product? ProductModel { get; set; }
+        public bool AllowEdit { get; private set; } = false;
+        public bool AllowInsert { get; private set; } = false;
         private bool _StLoad = true;
 
         public dlgProductEA()
@@ -85,6 +85,8 @@ namespace Orderappis.UserControls.Mod.Products.dlg
         {
             try
             {
+                if (ProductModel == null)
+                    return false;
                 // načtení produktu podle ID
                 var editProduct = GetProductById(ProductModel.ProductId);
                 if (editProduct != null)
@@ -129,9 +131,9 @@ namespace Orderappis.UserControls.Mod.Products.dlg
         }
 
 
-        public Product GetProductById(int productId)
+        public Product? GetProductById(int productId)
         {
-            Product product = null;
+            Product? product = null;
 
             string sql = @"
                SELECT product_id,
@@ -169,9 +171,12 @@ namespace Orderappis.UserControls.Mod.Products.dlg
             return product;
         }
 
-        public List<string> Validate()
+        public List<string> ValidateD()
         {
             List<string> errors = new List<string>();
+
+            if (ProductModel == null)
+                return errors;
 
             // Id kategorie
             if (ProductModel.ProductCategoryId <= 0)
@@ -206,7 +211,9 @@ namespace Orderappis.UserControls.Mod.Products.dlg
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            var errors = Validate();
+            if (ProductModel == null) return;
+
+            var errors = ValidateD();
 
             if (errors.Count > 0)
             {

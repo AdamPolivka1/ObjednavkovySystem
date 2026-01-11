@@ -9,9 +9,9 @@ namespace Orderappis.Dev.PDF
         public class PdfInvoiceOrderItem
         {
             // Kód zboží
-            public string ProductCode { get; set; }
+            public string ProductCode { get; set; } = string.Empty;
             // Název produktu
-            public string ProductName { get; set; }
+            public string ProductName { get; set; } = string.Empty;
             // Počet produktů
             public int ProductQty { get; set; }
         }
@@ -19,28 +19,28 @@ namespace Orderappis.Dev.PDF
         public class PDFInvoiceDTO
         {
             // Číslo faktury
-            public string InvoiceNumber { get; set; }
+            public string InvoiceNumber { get; set; } = string.Empty;
             // Číslo bankovního účtu
-            public string InvoiceAccNum { get; set; }
+            public string InvoiceAccNum { get; set; } = string.Empty;
             // Datum vystavení
-            public string Date1 { get; set; }
+            public string Date1 { get; set; } = string.Empty;
             // Datum splatnosti
-            public string Date2 { get; set; }
+            public string Date2 { get; set; } = string.Empty;
             // Celková cena
-            public string TotalPriceCZK { get; set; }
+            public string TotalPriceCZK { get; set; } = string.Empty;
             // Variabilní symbol
-            public string VS { get; set; }       
+            public string VS { get; set; } = string.Empty;
 
             // Dodavatel =============================
-            public string Dod_Name { get; set; }
-            public string Dod_Address { get; set; }
-            public string Dod_IC {  get; set; }
+            public string Dod_Name { get; set; } = string.Empty;
+            public string Dod_Address { get; set; } = string.Empty;
+            public string Dod_IC { get; set; } = string.Empty;
             //----------------------------------------
 
             // Odběratel =============================
-            public string Odb_Name { get; set; }
-            public string Odb_Address { get; set; }
-            public string Odb_IC { get; set; }
+            public string Odb_Name { get; set; } = string.Empty;
+            public string Odb_Address { get; set; } = string.Empty;
+            public string Odb_IC { get; set; } = string.Empty;
             //----------------------------------------
 
             public override string ToString()

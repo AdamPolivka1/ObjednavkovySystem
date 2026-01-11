@@ -16,7 +16,7 @@ namespace Orderis.UserControls.Mod.Orders
 
         // TAB 1
         private DataTable dtDeliveries = new DataTable();
-        private NpgsqlDataAdapter deliveriesAdapter;
+        private NpgsqlDataAdapter? deliveriesAdapter;
 
         // Auth Info ---------------------
         private Boolean isZ { get; set; }
@@ -205,8 +205,10 @@ namespace Orderis.UserControls.Mod.Orders
             }
         }
 
-        private void GridCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void GridCellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
         {
+            if (sender == null)
+            { return; }
             // nedoručena (0), doručena (1)
             if (dataGridViewDeliveries.Columns[e.ColumnIndex].Name == "colStatus"
                 && e.Value != null)
@@ -244,8 +246,12 @@ namespace Orderis.UserControls.Mod.Orders
         private void ChangePerPage_Click(object? sender, EventArgs e)
         {
             currentPage = 1;
-            pageSize = (int)cBoxPerPage.SelectedItem;
-            LoadPageDeliveries();
+            var objSelected = cBoxPerPage.SelectedItem;
+            if (objSelected != null)
+            {
+                pageSize = (int)objSelected;
+                LoadPageDeliveries();
+            }
         }
 
         private void GridDelete_Click(object? sender, EventArgs e)

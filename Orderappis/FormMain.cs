@@ -168,8 +168,10 @@ namespace Orderis
             _mainLayoutController.ChangeMod(item1, this);
         }
 
-        private void MenuItem_Click(object sender, EventArgs e)
+        private void MenuItem_Click(object? sender, EventArgs e)
         {
+            if (sender == null)
+            { return; }
             if (sender is ToolStripMenuItem mItem)
             {
                 mItem.DropDown.Close(); // vynucení zavøení popup
@@ -177,8 +179,10 @@ namespace Orderis
             }
         }
 
-        private void SubMenuItem_Click(object sender, EventArgs e)
+        private void SubMenuItem_Click(object? sender, EventArgs e)
         {
+            if (sender == null)
+            { return; }
             if (sender is ToolStripMenuItem mItem)
             {
                 mItem.DropDown.Close(); // vynucení zavøení popup

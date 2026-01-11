@@ -112,13 +112,20 @@ namespace Orderappis.Dev.PDF
                             || cell.ColumnIndex == 7)
                         {
                             var cellValue = cell.Value.ToString();
-                            gfx.DrawString(cellValue,
+                            string drawValue = "";
+
+                            if (cellValue != null)
+                            {
+                                drawValue = cellValue;
+                            }
+
+                            gfx.DrawString(drawValue,
                             font,
                                 XBrushes.Black,
                                 new XRect(xVal + 2, // padding
                                     yVal,
-                                    page.Width,
-                                    page.Height),
+                                    page.Width.Value,
+                                    page.Height.Value),
                                 XStringFormats.TopLeft);
                             xVal += cell.Size.Width;
                         }

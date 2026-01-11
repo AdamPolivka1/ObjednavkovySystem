@@ -15,7 +15,7 @@ namespace Orderis.Data.Model
         public int Status { get; set; }
         public string Note { get; set; }
 
-        public Payment() { }
+        //public Payment() { }
 
         public Payment(int paymentId,
             DateTime paymentDate,

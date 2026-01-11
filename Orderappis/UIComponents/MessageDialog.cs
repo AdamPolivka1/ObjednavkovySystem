@@ -69,7 +69,7 @@ namespace Orderis
             }
             form.label1.Text = message;
             /////
-            Form mainOpenForm = Application.OpenForms.Cast<Form>().FirstOrDefault(f => f == Application.OpenForms[0]);
+            Form? mainOpenForm = Application.OpenForms.Cast<Form>().FirstOrDefault(f => f == Application.OpenForms[0]);
             form.StartPosition = FormStartPosition.CenterParent;
             if (mainOpenForm != null)
                 return form.ShowDialog(mainOpenForm);

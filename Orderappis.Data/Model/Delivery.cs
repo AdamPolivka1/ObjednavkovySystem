@@ -14,9 +14,11 @@ namespace Orderis.Data.Model
         public string DeliveryAddress { get; set; }
         public int Status { get; set; }
         public decimal PriceCZK { get; set; }
-        public string Note { get; set; }
+        public string? Note { get; set; }
 
-        public Delivery() {}
+        public Delivery() {
+            DeliveryAddress = string.Empty;
+        }
 
         public Delivery(int aDeliveryId,
             int aDeliveryType,

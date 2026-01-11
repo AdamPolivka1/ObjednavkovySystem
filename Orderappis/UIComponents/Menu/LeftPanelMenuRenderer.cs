@@ -3,7 +3,7 @@ namespace Orderis.UIComponents.Menu
     public class LeftPanelMenuRenderer : ToolStripProfessionalRenderer
     {
         
-        private ToolStripItem _activeItem;
+        private ToolStripItem? _activeItem;
 
         public LeftPanelMenuRenderer() : base()
         {

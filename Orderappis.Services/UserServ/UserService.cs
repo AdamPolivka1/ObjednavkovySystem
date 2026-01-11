@@ -8,9 +8,9 @@ namespace Orderappis.Services.UserServ
     {
         public UserService() { }
 
-        public User GetUserById(int userId)
+        public User? GetUserById(int userId)
         {
-            User user = null;
+            User? user = null;
 
             string sql = @"SELECT user_id,
                 user_role_id,
@@ -32,21 +32,33 @@ namespace Orderappis.Services.UserServ
 
             if (reader.Read())
             {
+                /*
+                int userId,
+                int userRoleId,
+                string login,
+                string password,
+                string firstname,
+                string lastname,
+                string email,
+                string companyName,
+                string phoneNum1,
+                string? phoneNum2
+                 */
                 user = new User
-                {
-                    UserId = reader.GetInt32(reader.GetOrdinal("user_id")),
-                    UserRoleId = reader.GetInt32(reader.GetOrdinal("user_role_id")),
-                    Login = reader.GetString(reader.GetOrdinal("login")),
-                    Password = reader.GetString(reader.GetOrdinal("password")),
-                    Firstname = reader.GetString(reader.GetOrdinal("firstname")),
-                    Lastname = reader.GetString(reader.GetOrdinal("lastname")),
-                    Email = reader.GetString(reader.GetOrdinal("email")),
-                    CompanyName = reader.GetString(reader.GetOrdinal("company_name")),
-                    PhoneNum1 = reader.GetString(reader.GetOrdinal("phone_num1")),
-                    PhoneNum2 = reader.IsDBNull(reader.GetOrdinal("phone_num2"))
+                (
+                    reader.GetInt32(reader.GetOrdinal("user_id")),
+                    reader.GetInt32(reader.GetOrdinal("user_role_id")),
+                    reader.GetString(reader.GetOrdinal("login")),
+                    reader.GetString(reader.GetOrdinal("password")),
+                    reader.GetString(reader.GetOrdinal("firstname")),
+                    reader.GetString(reader.GetOrdinal("lastname")),
+                    reader.GetString(reader.GetOrdinal("email")),
+                    reader.GetString(reader.GetOrdinal("company_name")),
+                    reader.GetString(reader.GetOrdinal("phone_num1")),
+                    reader.IsDBNull(reader.GetOrdinal("phone_num2"))
                                 ? null
                                 : reader.GetString(reader.GetOrdinal("phone_num2"))
-                };
+                );
             }
 
             DbConnProvider.Instance.ConnClose();
@@ -54,9 +66,9 @@ namespace Orderappis.Services.UserServ
         }
 
 
-        public User GetUserByEmail(string email)
+        public User? GetUserByEmail(string email)
         {
-            User user = null;
+            User? user = null;
 
             string sql = @"SELECT user_id,
                 user_role_id,
@@ -79,20 +91,20 @@ namespace Orderappis.Services.UserServ
             if (reader.Read())
             {
                 user = new User
-                {
-                    UserId = reader.GetInt32(reader.GetOrdinal("user_id")),
-                    UserRoleId = reader.GetInt32(reader.GetOrdinal("user_role_id")),
-                    Login = reader.GetString(reader.GetOrdinal("login")),
-                    Password = reader.GetString(reader.GetOrdinal("password")),
-                    Firstname = reader.GetString(reader.GetOrdinal("firstname")),
-                    Lastname = reader.GetString(reader.GetOrdinal("lastname")),
-                    Email = reader.GetString(reader.GetOrdinal("email")),
-                    CompanyName = reader.GetString(reader.GetOrdinal("company_name")),
-                    PhoneNum1 = reader.GetString(reader.GetOrdinal("phone_num1")),
-                    PhoneNum2 = reader.IsDBNull(reader.GetOrdinal("phone_num2"))
-                                ? null
-                                : reader.GetString(reader.GetOrdinal("phone_num2"))
-                };
+                (
+                    reader.GetInt32(reader.GetOrdinal("user_id")),
+                    reader.GetInt32(reader.GetOrdinal("user_role_id")),
+                    reader.GetString(reader.GetOrdinal("login")),
+                    reader.GetString(reader.GetOrdinal("password")),
+                    reader.GetString(reader.GetOrdinal("firstname")),
+                    reader.GetString(reader.GetOrdinal("lastname")),
+                    reader.GetString(reader.GetOrdinal("email")),
+                    reader.GetString(reader.GetOrdinal("company_name")),
+                    reader.GetString(reader.GetOrdinal("phone_num1")),
+                    reader.IsDBNull(reader.GetOrdinal("phone_num2"))
+                        ? null
+                        : reader.GetString(reader.GetOrdinal("phone_num2"))
+                );
             }
 
             DbConnProvider.Instance.ConnClose();

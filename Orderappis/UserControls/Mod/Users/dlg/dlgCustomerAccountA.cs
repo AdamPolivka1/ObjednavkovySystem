@@ -36,9 +36,9 @@ namespace Orderappis.UserControls.Mod.Users.dlg
             return cmd.ExecuteNonQuery(); //=1 if success
         }
 
-        public User GetUserById(int userId)
+        public User? GetUserById(int userId)
         {
-            User user = null;
+            User? user = null;
 
             string sql = @"SELECT u.user_id,
                 u.user_role_id,

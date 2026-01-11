@@ -126,11 +126,34 @@ namespace Orderappis.UserControls.Mod.Orders.dlg
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
                     // nastavení hlaviček sloupců
-                    dt.Columns["ProductId"].ColumnName = "ID";
-                    dt.Columns["Code"].ColumnName = "Kód";
-                    dt.Columns["Name"].ColumnName = "Název";
-                    dt.Columns["AvailableQty"].ColumnName = "Počet";
-                    dt.Columns["PriceCzk"].ColumnName = "Cena CZK";
+                    var col = dt.Columns["ProductId"];
+                    if (col != null)
+                    { 
+                        col.ColumnName = "ID";
+                    }
+
+                    var col2 = dt.Columns["Code"];
+                    if (col2 != null)
+                    { 
+                        col2.ColumnName = "Kód";
+                    }
+
+                    var col3 = dt.Columns["Name"];
+                    if (col3 != null)
+                    { 
+                        col3.ColumnName = "Název";
+                    }
+
+                    var col4 = dt.Columns["AvailableQty"];
+                    if (col4 != null)
+                    { 
+                        col4.ColumnName = "Počet";
+                    }
+
+                    var col5 = dt.Columns["PriceCzk"];
+                    if (col5 != null) {
+                        col5.ColumnName = "Cena CZK";
+                    }
 
                     dataGridViewSource.DataSource = dt;
                 }
@@ -249,10 +272,29 @@ namespace Orderappis.UserControls.Mod.Orders.dlg
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
                     // hlavičky
-                    dt.Columns["OrderItemId"].ColumnName = "ID";
-                    dt.Columns["ProductId"].ColumnName = "ID produktu";
-                    dt.Columns["Qty"].ColumnName = "Počet";
-                    dt.Columns["Note"].ColumnName = "Poznámka";
+                    var col1 = dt.Columns["OrderItemId"];
+                    if (col1 != null) { 
+                        col1.ColumnName = "ID";
+                    }
+
+                    var col2 = dt.Columns["ProductId"];
+                    if (col2 != null)
+                    {
+                        col2.ColumnName = "ID produktu";
+                    }
+                    
+                    var col3 = dt.Columns["Qty"];
+                    if (col3 != null)
+                    {
+                        col3.ColumnName = "Počet";
+                    }
+                    
+                    var col4 = dt.Columns["Note"];
+                    if (col4 != null)
+                    {
+                        col4.ColumnName = "Poznámka";
+                    }
+                    
                     dataGridViewOrderItems.DataSource = dt;
                 }
             }

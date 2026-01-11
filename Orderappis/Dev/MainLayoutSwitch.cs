@@ -17,7 +17,7 @@ namespace Orderis.Dev
         public void ChangeMod(ToolStripMenuItem mItemSender, FormMain form)
         {
             bool isMainLevel = false;
-            UserControl userControl = null;
+            UserControl? userControl = null;
             string PageLabelStr = "";
 
             switch (mItemSender.Tag)
@@ -65,11 +65,15 @@ namespace Orderis.Dev
             {
                 leftPanelMenuRenderer.SetActiveItem(mItemSender);
             }
-            else { 
-                ToolStripMenuItem parent = mItemSender.OwnerItem as ToolStripMenuItem;
-                if (parent != null)
+            else {
+                var owner = mItemSender.OwnerItem;
+                if (owner != null)
                 {
-                    leftPanelMenuRenderer.SetActiveItem(parent);
+                    ToolStripMenuItem? parent = owner as ToolStripMenuItem;
+                    if (parent != null)
+                    {
+                        leftPanelMenuRenderer.SetActiveItem(parent);
+                    }
                 }
             }
             

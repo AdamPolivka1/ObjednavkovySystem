@@ -46,10 +46,14 @@ namespace Orderappis.UserControls.Mod.Orders.dlg
         public void LoadData()
         {
             // Load Order from database
-            OrderModel = _orderRepository.GetById(OrderID);
-            comboBoxStatus.SelectedValue = OrderModel.Status;         
-            numericUpDownTotalPriceCZK.Value = OrderModel.TotalPriceCZK;
-            PrevTotalPriceCZK = numericUpDownTotalPriceCZK.Value;
+            var order = _orderRepository.GetById(OrderID);
+            if (order != null)
+            {
+                OrderModel = order;
+                comboBoxStatus.SelectedValue = OrderModel.Status;
+                numericUpDownTotalPriceCZK.Value = OrderModel.TotalPriceCZK;
+                PrevTotalPriceCZK = numericUpDownTotalPriceCZK.Value;
+            }
         }
 
         private void InitComboBox()
@@ -72,9 +76,12 @@ namespace Orderappis.UserControls.Mod.Orders.dlg
 
         private void UpdateData()
         {
-            var status = (int)comboBoxStatus.SelectedValue;
-            decimal totalPrice = numericUpDownTotalPriceCZK.Value;
-            _orderRepository.UpdateOrderStatusAndPrice(status, totalPrice, OrderModel.OrderId);
+            var statusObj = comboBoxStatus.SelectedValue;
+            if (statusObj != null)
+            {
+                decimal totalPrice = numericUpDownTotalPriceCZK.Value;
+                _orderRepository.UpdateOrderStatusAndPrice((int)statusObj, totalPrice, OrderModel.OrderId);
+            }
         }
 
         private void buttonSave_Click(object sender, EventArgs e)

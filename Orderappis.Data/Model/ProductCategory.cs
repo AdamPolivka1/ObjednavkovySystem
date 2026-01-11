@@ -12,7 +12,7 @@ namespace Orderis.Data.Model
         public string CategoryName { get; set; }
         public string Descr { get; set; }
 
-        public ProductCategory() { }
+        //public ProductCategory() { }
 
         public ProductCategory(int productCategoryId,
             string categoryName,

@@ -34,9 +34,9 @@ namespace Orderis.UserControls.Mod.Users
         private DataTable dtUsers = new DataTable();
         private DataTable dtRoles = new DataTable();
         private DataTable dtAccounts = new DataTable();
-        private NpgsqlDataAdapter userAdapter;
-        private NpgsqlDataAdapter roleAdapter;
-        private NpgsqlDataAdapter accountAdapter;
+        private NpgsqlDataAdapter? userAdapter;
+        private NpgsqlDataAdapter? roleAdapter;
+        private NpgsqlDataAdapter? accountAdapter;
 
         public ModUsersMain()
         {
@@ -301,13 +301,15 @@ namespace Orderis.UserControls.Mod.Users
             }
         }
 
-        private void GridRefresh_Click(object sender, EventArgs e)
+        private void GridRefresh_Click(object? sender, EventArgs e)
         {
+            //if(sender ==  null) return;
             Init();
         }
 
-        private void GridRefreshR_Click(object sender, EventArgs e)
+        private void GridRefreshR_Click(object? sender, EventArgs e)
         {
+            //if (sender == null) return;
             InitTab2();
         }
 
@@ -474,8 +476,9 @@ namespace Orderis.UserControls.Mod.Users
             }
         }
 
-        private void GridCreate_Click(object sender, EventArgs e)
+        private void GridCreate_Click(object? sender, EventArgs e)
         {
+            if (sender == null) return;
             bool ModalAllowInsert = false;
             using (var modal = new dlgUserEA())
             {
@@ -510,8 +513,9 @@ namespace Orderis.UserControls.Mod.Users
             }
         }
 
-        private void GridEdit_Click(object sender, EventArgs e)
+        private void GridEdit_Click(object? sender, EventArgs e)
         {
+            if (sender == null) return;
             bool ModalAllowEdit = false;
             int userId = GetCurrentRowUserId();
             if (userId > 0)
@@ -581,12 +585,16 @@ namespace Orderis.UserControls.Mod.Users
         private void ChangePerPageA_Click(object sender, EventArgs e)
         {
             currentPageA = 1;
-            pageSizeA = (int)cBoxPerPageA.SelectedItem;
-            LoadPageTab3();
+            var pgS = cBoxPerPageA.SelectedItem;
+            if (pgS != null) {
+                pageSizeA = (int)pgS;
+                LoadPageTab3();
+            }
         }
 
-        private void PaginationButton_Click(object sender, EventArgs e)
+        private void PaginationButton_Click(object? sender, EventArgs e)
         {
+            if (sender == null) return; 
             if (sender == btnFirst) currentPage = 1;
             else if (sender == btnPrev) currentPage = Math.Max(1, currentPage - 1);
             else if (sender == btnNext) currentPage = Math.Min(totalPages, currentPage + 1);

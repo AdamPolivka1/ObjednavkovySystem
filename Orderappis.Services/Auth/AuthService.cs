@@ -83,7 +83,7 @@ namespace Orderis.Services.Auth
             using var cmd = new NpgsqlCommand(sql, DbConnProvider.Instance.Conn);
             cmd.Parameters.AddWithValue("@roleName", NpgsqlTypes.NpgsqlDbType.Varchar, roleName);
 
-            object result = cmd.ExecuteScalar();
+            object? result = cmd.ExecuteScalar();
             DbConnProvider.Instance.ConnClose();
 
             if (result != null && int.TryParse(result.ToString(), out int roleId))
@@ -107,13 +107,10 @@ namespace Orderis.Services.Auth
             using var cmd = new NpgsqlCommand(sql, DbConnProvider.Instance.Conn);
             cmd.Parameters.AddWithValue("@UserId", AuthService.Instance.CurrentUser.UserId);
 
-            object result = cmd.ExecuteScalar();
+            object? result = cmd.ExecuteScalar();
             DbConnProvider.Instance.ConnClose();
 
-            if (result != DBNull.Value)
-                return result.ToString();
-            else
-                return "";
+            return result?.ToString() ?? "";
         }
 
         public void Logout()

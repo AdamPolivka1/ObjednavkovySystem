@@ -1,11 +1,6 @@
 using Npgsql;
 using Orderis.Data;
 using Orderis.Data.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Orderappis.Services.DeliveryServ
 {
@@ -25,7 +20,7 @@ namespace Orderappis.Services.DeliveryServ
             cmd.Parameters.AddWithValue("@delivery_address", delivery.DeliveryAddress);
             cmd.Parameters.AddWithValue("@status", delivery.Status);
             cmd.Parameters.AddWithValue("@price_czk", delivery.PriceCZK);
-            cmd.Parameters.AddWithValue("@note", delivery.Note);
+            cmd.Parameters.AddWithValue("@note", delivery.Note == null ? DBNull.Value : delivery.Note);
 
             var result = cmd.ExecuteNonQuery(); 
 

@@ -96,7 +96,7 @@ namespace Orderappis.UserControls.Mod.Orders.dlg
                 }
                 ////
             }
-            catch (Exception ex)
+            catch
             {
                 errorsList.Add("Id objednávky je nevalidní.");
             }
@@ -108,16 +108,31 @@ namespace Orderappis.UserControls.Mod.Orders.dlg
                 return -1;
             }
 
-            int status = (int)comboBoxStatus.SelectedValue;
+            var selectedVal = comboBoxStatus.SelectedValue;
+            
+            int status = -1;
+            if (selectedVal != null)
+                status = (int)selectedVal;    
+            
             string note = textBoxNote.Text;
 
             string sqlUpdate = "UPDATE amain.payment" +
                 " SET status = @Status, note = @Note" +
                 " WHERE payment_id = @PaymentId";
 
-            using (var cmd = new NpgsqlCommand(sqlUpdate, DbConnProvider.Instance.Conn))
-            { 
-                cmd.Parameters.AddWithValue("@Status", status);
+            if (status == -1)
+            {
+                sqlUpdate = "UPDATE amain.payment" +
+                    " SET note = @Note" +
+                    " WHERE payment_id = @PaymentId";
+            }
+
+             using (var cmd = new NpgsqlCommand(sqlUpdate, DbConnProvider.Instance.Conn))
+             {
+                if (status != -1)
+                {
+                    cmd.Parameters.AddWithValue("@Status", status);
+                }
                 cmd.Parameters.AddWithValue("@Note", note);
                 cmd.Parameters.AddWithValue("@PaymentId", PaymentId);
 

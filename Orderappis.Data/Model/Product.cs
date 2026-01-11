@@ -13,10 +13,13 @@ namespace Orderis.Data.Model
         public int AvailableQty { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public decimal PriceCzk { get; set; }
 
-        public Product() { }
+        public Product() {
+            Code = "";
+            Name = "";
+        }
 
         public Product(int productId,
             int productCategoryId,

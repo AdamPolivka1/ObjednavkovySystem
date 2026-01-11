@@ -72,7 +72,7 @@ namespace Orderis.Data
             string host = DbConnConfig.Instance.Host;
             if (host != "localhost")
             {
-                if (IPAddress.TryParse(host, out IPAddress ipv4))
+                if (IPAddress.TryParse(host, out IPAddress? ipv4))
                 {
                     conn_str = conn_str.Replace("localhost", host);
                 }

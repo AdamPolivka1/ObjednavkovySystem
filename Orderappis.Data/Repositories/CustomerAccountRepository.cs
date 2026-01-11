@@ -6,9 +6,9 @@ namespace Orderappis.Data.Repositories
 {
     public class CustomerAccountRepository
     {
-        public CustomerAccount GetByUserEmail(string email)
+        public CustomerAccount? GetByUserEmail(string email)
         {
-            CustomerAccount customerAccount = null;
+            CustomerAccount? customerAccount = null;
 
             string sql = @"SELECT ca.customer_account_id,
             ca.user_id,

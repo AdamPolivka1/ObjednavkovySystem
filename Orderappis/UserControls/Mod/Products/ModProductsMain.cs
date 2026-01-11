@@ -21,14 +21,14 @@ namespace Orderis.UserControls.Mod.Products
 
         private DataTable dtProducts = new DataTable();
         private DataTable dtCategories = new DataTable();
-        private NpgsqlDataAdapter productAdapter;
-        private NpgsqlDataAdapter categoryAdapter;
+        private NpgsqlDataAdapter? productAdapter;
+        private NpgsqlDataAdapter? categoryAdapter;
 
         // Auth Info ---------------------
-        private Boolean isZ { get; set; }
-        private Boolean isM { get; set; }
-        private Boolean isS { get; set; }
-        private Boolean isA { get; set; }
+        private Boolean isZ { get; set; } = false;
+        private Boolean isM { get; set; } = false;      
+        private Boolean isS { get; set; } = false;
+        private Boolean isA { get; set; } = false;  
         //--------------------------------
 
         public ModProductsMain()
@@ -441,12 +441,17 @@ namespace Orderis.UserControls.Mod.Products
         private void ChangePerPageC_Click(object sender, EventArgs e)
         {
             currentPageC = 1;
-            pageSizeC = (int)cBoxPerPageC.SelectedItem;
-            LoadPageTab2();
+            var selectedItem = cBoxPerPageC.SelectedItem;
+            if (selectedItem != null)
+            {
+                pageSizeC = (int)selectedItem;
+                LoadPageTab2();
+            }
         }
 
-        private void PaginationButton_Click(object sender, EventArgs e)
+        private void PaginationButton_Click(object? sender, EventArgs e)
         {
+            if (sender == null) return;
             if (sender == btnFirst) currentPage = 1;
             else if (sender == btnPrev) currentPage = Math.Max(1, currentPage - 1);
             else if (sender == btnNext) currentPage = Math.Min(totalPages, currentPage + 1);

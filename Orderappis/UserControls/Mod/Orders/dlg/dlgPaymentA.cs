@@ -73,7 +73,7 @@ namespace Orderappis.UserControls.Mod.Orders.dlg
                 }
                 ////
             }
-            catch (Exception ex)
+            catch
             {
                 errorsList.Add("Id objednávky je nevalidní.");
             }

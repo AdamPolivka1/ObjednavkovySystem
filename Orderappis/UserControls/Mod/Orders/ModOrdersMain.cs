@@ -26,15 +26,15 @@ namespace Orderis.UserControls.Mod.Orders
 
         // TAB 1 objects
         private DataTable dtOrders = new DataTable();
-        private NpgsqlDataAdapter ordersAdapter;
+        private NpgsqlDataAdapter? ordersAdapter;
 
         // TAB 2 Up
         private DataTable dtOrders2 = new DataTable();
-        private NpgsqlDataAdapter orders2Adapter;
+        private NpgsqlDataAdapter? orders2Adapter;
 
         // TAB 2 Down
         private DataTable dtOrderItems = new DataTable();
-        private NpgsqlDataAdapter orderItemsAdapter;
+        private NpgsqlDataAdapter? orderItemsAdapter;
 
         // TAB 4
         private DataTable dtInvoice = new DataTable();
@@ -46,10 +46,10 @@ namespace Orderis.UserControls.Mod.Orders
         private int totalPages_Inv = 0;
 
         // Auth Info ---------------------
-        private Boolean isZ { get; set; }
-        private Boolean isM { get; set; }
-        private Boolean isS { get; set; }
-        private Boolean isA { get; set; }
+        private Boolean isZ { get; set; } = false;
+        private Boolean isM { get; set; } = false;
+        private Boolean isS { get; set; } = false;
+        private Boolean isA { get; set; } = false;
         //--------------------------------
 
         public ModOrdersMain()

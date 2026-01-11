@@ -58,7 +58,7 @@ namespace Orderappis.UIComponents.AuthForm
                     lblError.Text = "Přihlášení se nezdařilo";
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 lblError.Text = "Přihlášení se nezdařilo (stat. 2)";
                 DbConnProvider.ResetInstance();

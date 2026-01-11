@@ -16,13 +16,13 @@ namespace Orderis.UserControls.Mod.Orders
 
         // TAB 1
         private DataTable dtPayments = new DataTable();
-        private NpgsqlDataAdapter paymentsAdapter;
+        private NpgsqlDataAdapter? paymentsAdapter;
 
         // Auth Info ---------------------
-        private Boolean isZ { get; set; }
-        private Boolean isM { get; set; }
-        private Boolean isS { get; set; }
-        private Boolean isA { get; set; }
+        private Boolean isZ { get; set; } = false;
+        private Boolean isM { get; set; } = false;
+        private Boolean isS { get; set; } = false;
+        private Boolean isA { get; set; } = false;
         //--------------------------------
 
         public ModOrdersPayment()
@@ -238,7 +238,7 @@ namespace Orderis.UserControls.Mod.Orders
             }
         }
 
-        private void GridCellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private void GridCellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
         {
             // status
             if (dataGridViewPayments.Columns[e.ColumnIndex].Name == "colStatus"
@@ -288,8 +288,12 @@ namespace Orderis.UserControls.Mod.Orders
         private void ChangePerPage_Click(object? sender, EventArgs e)
         {
             currentPage = 1;
-            pageSize = (int)cBoxPerPage.SelectedItem;
-            LoadPagePayments();
+            var selectedI = cBoxPerPage.SelectedItem;
+            if (selectedI != null)
+            {
+                pageSize = (int)selectedI;
+                LoadPagePayments();
+            }
         }
 
         private void GridDelete_Click(object? sender, EventArgs e)

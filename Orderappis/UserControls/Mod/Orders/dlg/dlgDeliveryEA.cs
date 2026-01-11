@@ -159,22 +159,24 @@ namespace Orderappis.UserControls.Mod.Orders.dlg
                 }
                 ////
             }
-            catch (Exception ex)
+            catch
             {
                 errorsList.Add("Id objednávky je nevalidní.");
             }
 
             var deliveryTypeVar = comboBoxDeliveryType.SelectedValue;
 
+            int deliveryType = -1;
             if (deliveryTypeVar == null)
             {
                 errorsList.Add("Nevalidní typ.");
-            }
-            
-            int deliveryType = (int)deliveryTypeVar;
-            if (deliveryType < 0 || deliveryType > 3)
+            } else
             {
-                errorsList.Add("Nevalidní typ.");
+                deliveryType = (int)deliveryTypeVar;
+                if (deliveryType < 0 || deliveryType > 3)
+                {
+                    errorsList.Add("Nevalidní typ.");
+                }
             }
 
             DateTime deliveryDate = dateTimePickerDeliveryDate.Value;
