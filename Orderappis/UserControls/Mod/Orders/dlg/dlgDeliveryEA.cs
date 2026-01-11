@@ -78,6 +78,11 @@ namespace Orderappis.UserControls.Mod.Orders.dlg
                     textBoxNote.Text = deliveryNote;
                     textBoxOrderId.Text = orderIdStr;
                 }
+
+                if (UpdateMode)
+                { 
+                    textBoxOrderId.Enabled = false;
+                }
             }
         }
 
@@ -121,19 +126,26 @@ namespace Orderappis.UserControls.Mod.Orders.dlg
                     MessageBoxIcon.Information
                 );
             }
+            else {
+                MessageBox.Show(
+                    "K objednávce bude přičtena cena dopravy.",
+                    "Upozornění",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information
+                );
+            }
 
             List<string> errorsList = new List<string>();
 
             // zkotroluj zda existuje objednávka
             string orderIdStr = textBoxOrderId.Text;
             int orderId = -1;
-            int deliveryId = -1;
+            int oldDeliveryId = -1;
             try
             {
                 orderId = Convert.ToInt32(orderIdStr);
-                deliveryId = Convert.ToInt32(deliveryId);
                 ///
-                string findOrderSql = @"Select order_id From amain.""order""
+                string findOrderSql = @"Select order_id, delivery_id From amain.""order""
                     Where order_id = @OrderId";
                 using (var cmd = new NpgsqlCommand(findOrderSql, DbConnProvider.Instance.Conn))
                 {
@@ -151,6 +163,10 @@ namespace Orderappis.UserControls.Mod.Orders.dlg
                         {
                             errorsList.Add("Objednávka nenalezena.");
                         }
+                        if (!reader.IsDBNull(reader.GetOrdinal("delivery_id")))
+                        {
+                            oldDeliveryId = reader.GetInt32(1);
+                        }
                     }
                     else
                     {
@@ -162,6 +178,15 @@ namespace Orderappis.UserControls.Mod.Orders.dlg
             catch
             {
                 errorsList.Add("Id objednávky je nevalidní.");
+            }
+
+            // kontrola zda už není přiřazeno k objednávce
+            if (oldDeliveryId != -1) 
+            {
+                if (oldDeliveryId != DeliveryId)
+                {
+                    errorsList.Add("Objednávka již má přiřazenou dopravu.");
+                }
             }
 
             var deliveryTypeVar = comboBoxDeliveryType.SelectedValue;

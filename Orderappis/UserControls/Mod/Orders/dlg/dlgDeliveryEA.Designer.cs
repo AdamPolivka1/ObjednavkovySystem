@@ -29,6 +29,8 @@ namespace Orderappis.UserControls.Mod.Orders.dlg
         private void InitializeComponent()
         {
             groupBoxDelivery = new GroupBox();
+            textBoxOrderId = new TextBox();
+            labelOrder = new Label();
             textBoxErrors = new TextBox();
             labelErrors = new Label();
             textBoxNote = new TextBox();
@@ -44,8 +46,6 @@ namespace Orderappis.UserControls.Mod.Orders.dlg
             labelDeliveryDate = new Label();
             labelDeliveryType = new Label();
             comboBoxDeliveryType = new ComboBox();
-            labelOrder = new Label();
-            textBoxOrderId = new TextBox();
             groupBoxDelivery.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDownPrice).BeginInit();
             SuspendLayout();
@@ -76,6 +76,22 @@ namespace Orderappis.UserControls.Mod.Orders.dlg
             groupBoxDelivery.TabStop = false;
             groupBoxDelivery.Text = "Doručení";
             groupBoxDelivery.Enter += groupBox1_Enter;
+            // 
+            // textBoxOrderId
+            // 
+            textBoxOrderId.Location = new Point(117, 43);
+            textBoxOrderId.Name = "textBoxOrderId";
+            textBoxOrderId.Size = new Size(225, 27);
+            textBoxOrderId.TabIndex = 18;
+            // 
+            // labelOrder
+            // 
+            labelOrder.AutoSize = true;
+            labelOrder.Location = new Point(6, 43);
+            labelOrder.Name = "labelOrder";
+            labelOrder.Size = new Size(105, 20);
+            labelOrder.TabIndex = 17;
+            labelOrder.Text = "Id objednávky:";
             // 
             // textBoxErrors
             // 
@@ -209,22 +225,6 @@ namespace Orderappis.UserControls.Mod.Orders.dlg
             comboBoxDeliveryType.Name = "comboBoxDeliveryType";
             comboBoxDeliveryType.Size = new Size(250, 28);
             comboBoxDeliveryType.TabIndex = 0;
-            // 
-            // labelOrder
-            // 
-            labelOrder.AutoSize = true;
-            labelOrder.Location = new Point(6, 43);
-            labelOrder.Name = "labelOrder";
-            labelOrder.Size = new Size(105, 20);
-            labelOrder.TabIndex = 17;
-            labelOrder.Text = "Id objednávky:";
-            // 
-            // textBoxOrderId
-            // 
-            textBoxOrderId.Location = new Point(117, 43);
-            textBoxOrderId.Name = "textBoxOrderId";
-            textBoxOrderId.Size = new Size(225, 27);
-            textBoxOrderId.TabIndex = 18;
             // 
             // dlgDeliveryEA
             // 

@@ -325,7 +325,7 @@ namespace Orderis.UserControls.Mod.Orders
                         conn.Open();
 
                     string sqlDelete = @"DELETE FROM amain.payment
-                            WHERE payment_id=@PaymentId";
+                        WHERE payment_id=@PaymentId";
                     using (var cmd = new NpgsqlCommand(sqlDelete, DbConnProvider.Instance.Conn))
                     {
                         cmd.Parameters.AddWithValue("@PaymentId",
@@ -336,6 +336,7 @@ namespace Orderis.UserControls.Mod.Orders
                     }
                 }
             }
+            LoadTab1();
         }
 
         private void GridCreate_Click(object? sender, EventArgs e)

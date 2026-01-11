@@ -35,7 +35,7 @@ namespace Orderappis.UserControls.Mod.Orders.dlg
             comboBoxPaymentMethod.SelectedIndex = 0;
         }
 
-        private void CreatePayment()
+        private bool CreatePayment()
         {
             List<string> errorsList = new List<string>();
 
@@ -51,7 +51,6 @@ namespace Orderappis.UserControls.Mod.Orders.dlg
                 using (var cmd = new NpgsqlCommand(findOrderSql, DbConnProvider.Instance.Conn))
                 {
                     cmd.Parameters.AddWithValue("@OrderId", NpgsqlTypes.NpgsqlDbType.Integer, orderId);
-
 
                     using var reader = cmd.ExecuteReader();
 
@@ -102,29 +101,68 @@ namespace Orderappis.UserControls.Mod.Orders.dlg
             {
                 string errorsLines = string.Join(Environment.NewLine, errorsList);
                 textBoxErrors.Text = errorsLines;
-                return;
+                return false;
             }
 
-            // INSERT
-            string sql = "INSERT INTO amain.payment " +
-                "(payment_date, payment_method, total_czk, status, note)" +
-                " VALUES(@PaymentDate, @PaymentMethod, @TotalCZK, @Status, @Note)";
+            var conn = DbConnProvider.Instance.Conn;
+            using (var transaction = conn.BeginTransaction())
+            {
+                try
+                {
+                    // INSERT
+                    int paymentId = -1;
+                    string sql = "INSERT INTO amain.payment " +
+                    "(payment_date, payment_method, total_czk, status, note)" +
+                    " VALUES(@PaymentDate, @PaymentMethod, @TotalCZK, @Status, @Note) RETURNING payment_id";
 
-            using (var cmd = new NpgsqlCommand(sql, DbConnProvider.Instance.Conn))
-            { 
-                cmd.Parameters.AddWithValue("@PaymentDate", paymentDate);
-                cmd.Parameters.AddWithValue("@PaymentMethod", paymentMethod);
-                cmd.Parameters.AddWithValue("@TotalCZK", totalCZK);
-                cmd.Parameters.AddWithValue("@Status", status);
-                cmd.Parameters.AddWithValue("@Note", note);
+                    using (var cmd = new NpgsqlCommand(sql, DbConnProvider.Instance.Conn))
+                    {
+                        cmd.Parameters.AddWithValue("@PaymentDate", paymentDate);
+                        cmd.Parameters.AddWithValue("@PaymentMethod", paymentMethod);
+                        cmd.Parameters.AddWithValue("@TotalCZK", totalCZK);
+                        cmd.Parameters.AddWithValue("@Status", status);
+                        cmd.Parameters.AddWithValue("@Note", note);
 
-                cmd.ExecuteNonQuery();
+                        var resultData = cmd.ExecuteScalar();
+                        if (resultData != null)
+                        {
+                            paymentId = (int)resultData;
+                        }
+                    }
+
+                    sql = "UPDATE amain.\"order\" SET payment_id = @PaymentId Where order_id = @OrderId";
+
+                    if (paymentId != -1)
+                    {
+                        using (var cmd = new NpgsqlCommand(sql, DbConnProvider.Instance.Conn))
+                        {
+                            cmd.Parameters.AddWithValue("@PaymentId", paymentId);
+                            cmd.Parameters.AddWithValue("@OrderId", orderId);
+                            cmd.ExecuteNonQuery();
+                        }
+                        transaction.Commit();
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                } catch 
+                { 
+                    transaction.Rollback();
+                    textBoxErrors.Text = "Chyba insertu.";
+                    return false;
+                }
             }
+
+            return true;
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            CreatePayment();
+            if (!CreatePayment())
+            {
+                return;
+            }
             // zavření parent formu
             var parentForm = this.FindForm();
             if (parentForm != null)
