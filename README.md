@@ -52,6 +52,8 @@ c. Sestavit > Znovu sestavit řešení
 
 d. Nyní lze složku Orderappis > bin > Release distribuovat (je v ní exe soubor)
 
+d. Nebo lépe, jen stáhnout projekt a v hlavním adresáři zadat `dotnet publish -c Release`
+
 e. To je vše, případně vytvořit zástupce na ploše (na exe soubor z Release či už jinak pojmenované složky s exe)
 
 f. Příhlášení do systému jako admin: login: a00001 heslo: hsl123
